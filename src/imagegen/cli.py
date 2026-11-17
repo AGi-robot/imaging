@@ -22,20 +22,20 @@ def cmd_paint(args):
         print(f"paint failed: {error}", file=sys.stderr)
         return 1
     finally:
-        client.release()
+        client.close()
     return 0
 
 
 def cmd_check(args):
-    from . import moss
+    client = MossClient()
+    available = client.available()
     info = {
-        'engine_root': str(moss.ENGINE_ROOT),
-        'engine_present': moss.ENGINE_ROOT.exists(),
-        'weights_root': str(moss.WEIGHTS_ROOT),
-        'weights_present': moss.WEIGHTS_ROOT.exists(),
+        'binary': str(client.binary),
+        'model_dir': str(client.model_dir),
+        'available': available,
     }
     print(json.dumps(info, indent=2))
-    return 0 if info['engine_present'] and info['weights_present'] else 1
+    return 0 if available else 1
 
 
 def main():
