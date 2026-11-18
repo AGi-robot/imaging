@@ -8,6 +8,6 @@ setup(
     python_requires=">=3.10",
     package_dir={"": "src"},
     packages=find_namespace_packages(where="src"),
-    install_requires=["grace-canvas @ git+https://github.com/AGi-robot/canvas.git"],
+    install_requires=["grace-canvas>=0.2.0"],
     entry_points={"console_scripts": ["imagegen = imagegen.cli:main"]},
 )
